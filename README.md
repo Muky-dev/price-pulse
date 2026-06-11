@@ -1,4 +1,4 @@
-# Price Pulse
+<h1 align="center">Price Pulse</h1>
 
 <p align="center">
   Self-hosted price monitoring platform.
