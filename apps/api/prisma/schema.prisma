@@ -11,6 +11,19 @@ datasource db {
   provider = "postgresql"
 }
 
+model User {
+  id           String @id @default(ulid())
+  name         String
+  email        String
+  passwordHash String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  products Product[]
+}
+
 model Product {
   id    String  @id @default(ulid())
   name  String
@@ -19,6 +32,9 @@ model Product {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
+
+  user   User?   @relation(fields: [userId], references: [id])
+  userId String?
 
   offers Offer[]
 }
