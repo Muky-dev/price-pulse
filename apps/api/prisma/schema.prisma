@@ -26,7 +26,6 @@ model Product {
 model Offer {
   id             String  @id @default(ulid())
   url            String  @unique
-  storeName      String
   scrapeStrategy String?
 
   createdAt DateTime  @default(now())
@@ -35,6 +34,9 @@ model Offer {
 
   product   Product @relation(fields: [productId], references: [id])
   productId String
+
+  store   Store  @relation(fields: [storeId], references: [id])
+  storeId String
 
   pricePoints PricePoint[]
   scrapeRuns  ScrapeRun[]
@@ -71,4 +73,16 @@ model ScrapeRun {
   offerId String
 
   @@index([offerId, createdAt])
+}
+
+model Store {
+  id      String @id @default(ulid())
+  name    String
+  baseUrl String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  offers Offer[]
 }
