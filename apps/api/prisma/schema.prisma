@@ -14,5 +14,63 @@ datasource db {
 }
 
 model Product {
-  id String @id
+  id    String  @id @default(ulid())
+  name  String
+  brand String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  links ProductLink[]
+}
+
+model ProductLink {
+  id             String  @id @default(ulid())
+  url            String  @unique
+  storeName      String
+  scrapeStrategy String?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+
+  prices        ProductPrice[]
+  scrapeHistory ScrapeHistory[]
+}
+
+model ProductPrice {
+  id       String  @id @default(ulid())
+  price    Decimal
+  currency String  @db.Char(3)
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  productLink   ProductLink @relation(fields: [productLinkId], references: [id])
+  productLinkId String
+
+  @@index([productLinkId, createdAt])
+}
+
+model ScrapeHistory {
+  id         String    @id @default(ulid())
+  success    Boolean
+  message    String?
+  strategy   String
+  startedAt  DateTime
+  finishedAt DateTime?
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
+
+  productLink   ProductLink @relation(fields: [productLinkId], references: [id])
+  productLinkId String
+
+  @@index([productLinkId, createdAt])
 }
