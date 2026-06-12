@@ -20,10 +20,10 @@ model Product {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  links ProductLink[]
+  offers Offer[]
 }
 
-model ProductLink {
+model Offer {
   id             String  @id @default(ulid())
   url            String  @unique
   storeName      String
@@ -36,11 +36,11 @@ model ProductLink {
   product   Product @relation(fields: [productId], references: [id])
   productId String
 
-  prices        ProductPrice[]
-  scrapeHistory ScrapeHistory[]
+  pricePoints PricePoint[]
+  scrapeRuns  ScrapeRun[]
 }
 
-model ProductPrice {
+model PricePoint {
   id       String  @id @default(ulid())
   price    Decimal
   currency String  @db.Char(3)
@@ -49,13 +49,13 @@ model ProductPrice {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  productLink   ProductLink @relation(fields: [productLinkId], references: [id])
-  productLinkId String
+  offer   Offer  @relation(fields: [offerId], references: [id])
+  offerId String
 
-  @@index([productLinkId, createdAt])
+  @@index([offerId, createdAt])
 }
 
-model ScrapeHistory {
+model ScrapeRun {
   id         String    @id @default(ulid())
   success    Boolean
   message    String?
@@ -67,8 +67,8 @@ model ScrapeHistory {
   updatedAt DateTime  @updatedAt
   deletedAt DateTime?
 
-  productLink   ProductLink @relation(fields: [productLinkId], references: [id])
-  productLinkId String
+  offer   Offer  @relation(fields: [offerId], references: [id])
+  offerId String
 
-  @@index([productLinkId, createdAt])
+  @@index([offerId, createdAt])
 }
