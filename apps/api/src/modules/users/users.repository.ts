@@ -22,9 +22,15 @@ export class UsersRepository {
     });
   }
 
+  findActiveByName(name: string) {
+    return this.prisma.user.findUnique({
+      where: { name, deletedAt: null },
+    });
+  }
+
   findByEmail(email: string) {
     return this.prisma.user.findUnique({
-      where: { email },
+      where: { email, deletedAt: null },
     });
   }
 
