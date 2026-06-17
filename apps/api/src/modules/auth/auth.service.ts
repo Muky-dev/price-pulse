@@ -1,14 +1,18 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
+
 import { Argon2Hasher } from './argon2-hasher';
 import { RegisterDto } from './dto/register.dto';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
+import { LoginJwt } from './types/login.type';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly hasher: Argon2Hasher,
     private readonly usersService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   async register(registerDto: RegisterDto) {
@@ -18,8 +22,17 @@ export class AuthService {
     await this.usersService.create({ name, email, passwordHash });
   }
 
-  async login(loginDto: LoginDto) {
+  async login(loginDto: LoginDto): Promise<LoginJwt> {
+    const user = await this.validateUser(loginDto);
+
+    const payload = { sub: user.id, username: user.name };
+
+    return { access_token: await this.jwtService.signAsync(payload) };
+  }
+
+  async validateUser(loginDto: LoginDto) {
     const { name, password } = loginDto;
+
     const user = await this.usersService.findActiveByName(name);
 
     if (!user) {
@@ -34,5 +47,7 @@ export class AuthService {
     if (!isPasswordValid) {
       throw new UnauthorizedException('Invalid credentials');
     }
+
+    return user;
   }
 }
