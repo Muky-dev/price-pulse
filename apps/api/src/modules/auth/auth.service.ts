@@ -5,7 +5,7 @@ import { Argon2Hasher } from './argon2-hasher';
 import { RegisterDto } from './dto/register.dto';
 import { UsersService } from '../users/users.service';
 import { LoginDto } from './dto/login.dto';
-import { LoginJwt } from './types/login.type';
+import { AccessTokenResponse } from './types/login.type';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +22,7 @@ export class AuthService {
     await this.usersService.create({ name, email, passwordHash });
   }
 
-  async login(loginDto: LoginDto): Promise<LoginJwt> {
+  async login(loginDto: LoginDto): Promise<AccessTokenResponse> {
     const user = await this.validateUser(loginDto);
 
     const payload = { sub: user.id, username: user.name };

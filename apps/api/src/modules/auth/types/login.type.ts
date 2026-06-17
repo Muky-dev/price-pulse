@@ -1,3 +1,3 @@
-export interface LoginJwt {
+export interface AccessTokenResponse {
   access_token: string;
 }
