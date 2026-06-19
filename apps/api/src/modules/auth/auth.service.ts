@@ -33,7 +33,7 @@ export class AuthService {
   async validateUser(loginDto: LoginDto) {
     const { name, password } = loginDto;
 
-    const user = await this.usersService.findActiveByName(name);
+    const user = await this.usersService.findUnsecureByName(name);
 
     if (!user) {
       throw new UnauthorizedException('Invalid credentials');

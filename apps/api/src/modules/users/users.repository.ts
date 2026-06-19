@@ -13,7 +13,11 @@ export class UsersRepository {
   }
 
   findAll() {
-    return this.prisma.user.findMany();
+    return this.prisma.user.findMany({
+      omit: {
+        passwordHash: true,
+      },
+    });
   }
 
   findOne(id: string) {
@@ -22,7 +26,7 @@ export class UsersRepository {
     });
   }
 
-  findByName(name: string) {
+  findUnsecureByName(name: string) {
     return this.prisma.user.findFirst({
       where: { name, deletedAt: null },
     });

@@ -19,8 +19,8 @@ export class UsersService {
     return this.usersRepository.findOne(id);
   }
 
-  findActiveByName(name: string) {
-    return this.usersRepository.findByName(name);
+  findUnsecureByName(name: string) {
+    return this.usersRepository.findUnsecureByName(name);
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {
