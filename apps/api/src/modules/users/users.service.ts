@@ -20,7 +20,7 @@ export class UsersService {
   }
 
   findActiveByName(name: string) {
-    return this.usersRepository.findActiveByName(name);
+    return this.usersRepository.findByName(name);
   }
 
   update(id: string, updateUserDto: UpdateUserDto) {

@@ -17,13 +17,13 @@ export class UsersRepository {
   }
 
   findOne(id: string) {
-    return this.prisma.user.findUnique({
-      where: { id },
+    return this.prisma.user.findFirst({
+      where: { id, deletedAt: null },
     });
   }
 
-  findActiveByName(name: string) {
-    return this.prisma.user.findUnique({
+  findByName(name: string) {
+    return this.prisma.user.findFirst({
       where: { name, deletedAt: null },
     });
   }
