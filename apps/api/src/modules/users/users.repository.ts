@@ -9,6 +9,9 @@ export class UsersRepository {
   create(data: Prisma.UserCreateInput) {
     return this.prisma.user.create({
       data,
+      omit: {
+        passwordHash: true,
+      },
     });
   }
 
@@ -23,6 +26,9 @@ export class UsersRepository {
   findOne(id: string) {
     return this.prisma.user.findFirst({
       where: { id, deletedAt: null },
+      omit: {
+        passwordHash: true,
+      },
     });
   }
 
@@ -35,6 +41,9 @@ export class UsersRepository {
   findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email, deletedAt: null },
+      omit: {
+        passwordHash: true,
+      },
     });
   }
 
@@ -42,6 +51,9 @@ export class UsersRepository {
     return this.prisma.user.update({
       where: { id },
       data,
+      omit: {
+        passwordHash: true,
+      },
     });
   }
 
@@ -49,6 +61,9 @@ export class UsersRepository {
     return this.prisma.user.update({
       where: { id },
       data: { deletedAt: new Date() },
+      omit: {
+        passwordHash: true,
+      },
     });
   }
 }
