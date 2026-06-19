@@ -1,3 +1,1 @@
-export const jwtConstants = {
-  secret: process.env.JWT_SECRET ?? '',
-};
+// JWT_SECRET is now loaded via ConfigService — see auth.module.ts and jwt.strategy.ts
