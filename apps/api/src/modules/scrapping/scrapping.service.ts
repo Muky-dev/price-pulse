@@ -7,10 +7,11 @@ export class ScrappingService {
   constructor(private readonly scrappingRepository: ScrappingRepository) {}
 
   createRun(data: CreateScrapeRunDto) {
+    const { offerId, ...rest } = data;
     return this.scrappingRepository.create({
-      ...data,
+      ...rest,
       success: false,
-      offer: { connect: { id: data.offerId } },
+      offer: { connect: { id: offerId } },
     });
   }
 }
