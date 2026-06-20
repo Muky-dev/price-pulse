@@ -3,16 +3,17 @@ import { CreateOfferDto } from './dto/create-offer.dto';
 import { OffersRepository } from './offers.repository';
 import { AuthUser } from '../users/entity/user';
 import { InjectQueue } from '@nestjs/bullmq';
+import { Queue } from 'bullmq';
 
 @Injectable()
 export class OffersService {
   constructor(
     private readonly offersRepository: OffersRepository,
-    @InjectQueue('scrape') private readonly scrapeQueue,
+    @InjectQueue('scrape') private readonly scrapeQueue: Queue,
   ) {}
 
   async create(createOfferDto: CreateOfferDto, authUser: AuthUser) {
-    const offer = this.offersRepository.create({
+    const offer = await this.offersRepository.create({
       createdBy: { connect: { id: authUser.id } },
       url: createOfferDto.url,
     });
