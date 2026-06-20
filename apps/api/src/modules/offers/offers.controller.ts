@@ -1,16 +1,9 @@
-import {
-  Controller,
-  Get,
-  Post,
-  Body,
-  Param,
-  Delete,
-  Req,
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { ApiBearerAuth } from '@nestjs/swagger';
 import { OffersService } from './offers.service';
 import { CreateOfferDto } from './dto/create-offer.dto';
-import type { LoggedInRequest } from 'src/shared/types/request';
+import { CurrentUser } from '../auth/decorators/current-user.decorator';
+import type { AuthUser } from '../users/entity/user';
 
 @ApiBearerAuth()
 @Controller('offers')
@@ -18,9 +11,12 @@ export class OffersController {
   constructor(private readonly offersService: OffersService) {}
 
   @Post()
-  create(@Body() createOfferDto: CreateOfferDto, @Req() res: LoggedInRequest) {
-    console.log(res.user);
-    return this.offersService.create(createOfferDto, res.user);
+  create(
+    @Body() createOfferDto: CreateOfferDto,
+    @CurrentUser() currentUser: AuthUser,
+  ) {
+    console.log(currentUser);
+    return this.offersService.create(createOfferDto, currentUser);
   }
 
   @Get()
