@@ -8,6 +8,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './modules/auth/jwt.guard';
 import { OffersModule } from './modules/offers/offers.module';
 import { ProductsModule } from './modules/products/products.module';
+import { ScrappingModule } from './modules/scrapping/scrapping.module';
+import { QueueModule } from './infrastructure/queue/queue.module';
 
 @Module({
   imports: [
@@ -16,6 +18,8 @@ import { ProductsModule } from './modules/products/products.module';
     AuthModule,
     OffersModule,
     ProductsModule,
+    ScrappingModule,
+    QueueModule,
   ],
   providers: [
     PrismaService,

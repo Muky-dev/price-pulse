@@ -6,5 +6,6 @@ allowBuilds:
   '@scarf/scarf': true
   argon2: true
   bcrypt: true
+  msgpackr-extract: true
   prisma: true
   unrs-resolver: true

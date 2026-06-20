@@ -18,3 +18,18 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
+  price-pulse-valkey:
+    image: valkey/valkey:latest
+    container_name: price-pulse-valkey
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli ping"]
+      interval: 5s
+      timeout: 2s
+      retries: 20
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
