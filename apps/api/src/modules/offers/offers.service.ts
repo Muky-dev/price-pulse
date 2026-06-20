@@ -27,15 +27,15 @@ export class OffersService {
     return offer;
   }
 
-  findAll() {
-    return this.offersRepository.findAll();
+  async findAll() {
+    return await this.offersRepository.findAll();
   }
 
-  findOne(id: string) {
-    return this.offersRepository.findOne(id);
+  async findOne(id: string) {
+    return await this.offersRepository.findOne(id);
   }
 
-  remove(id: string) {
-    return this.offersRepository.remove(id);
+  async remove(id: string) {
+    return await this.offersRepository.remove(id);
   }
 }

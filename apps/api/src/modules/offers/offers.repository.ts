@@ -6,31 +6,31 @@ import { PrismaService } from 'src/prisma.service';
 export class OffersRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(data: Prisma.OfferCreateInput) {
-    return this.prisma.offer.create({
+  async create(data: Prisma.OfferCreateInput) {
+    return await this.prisma.offer.create({
       data,
     });
   }
 
-  findAll() {
-    return this.prisma.offer.findMany();
+  async findAll() {
+    return await this.prisma.offer.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.offer.findFirst({
+  async findOne(id: string) {
+    return await this.prisma.offer.findFirst({
       where: { id },
     });
   }
 
-  update(id: string, data: Prisma.OfferUpdateInput) {
-    return this.prisma.offer.update({
+  async update(id: string, data: Prisma.OfferUpdateInput) {
+    return await this.prisma.offer.update({
       where: { id },
       data,
     });
   }
 
-  remove(id: string) {
-    return this.prisma.offer.update({
+  async remove(id: string) {
+    return await this.prisma.offer.update({
       where: { id },
       data: { deletedAt: new Date() },
     });

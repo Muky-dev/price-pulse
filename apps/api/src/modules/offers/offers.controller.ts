@@ -11,25 +11,25 @@ export class OffersController {
   constructor(private readonly offersService: OffersService) {}
 
   @Post()
-  create(
+  async create(
     @Body() createOfferDto: CreateOfferDto,
     @CurrentUser() currentUser: AuthUser,
   ) {
-    return this.offersService.create(createOfferDto, currentUser);
+    return await this.offersService.create(createOfferDto, currentUser);
   }
 
   @Get()
-  findAll() {
-    return this.offersService.findAll();
+  async findAll() {
+    return await this.offersService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.offersService.findOne(id);
+  async findOne(@Param('id') id: string) {
+    return await this.offersService.findOne(id);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.offersService.remove(id);
+  async remove(@Param('id') id: string) {
+    return await this.offersService.remove(id);
   }
 }
