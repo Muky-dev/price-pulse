@@ -4,6 +4,8 @@ import { OffersRepository } from './offers.repository';
 import { AuthUser } from '../users/entity/user';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
+import { SCRAPE_JOBS } from 'src/infrastructure/queue/jobs/scrape-jobs';
+import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
 
 @Injectable()
 export class OffersService {
@@ -18,7 +20,9 @@ export class OffersService {
       url: createOfferDto.url,
     });
 
-    await this.scrapeQueue.add('scrape-offer', { offerId: offer.id });
+    const offerJobPayload: OfferJobPayload = { offerId: offer.id };
+
+    await this.scrapeQueue.add(SCRAPE_JOBS.OFFER, offerJobPayload);
 
     return offer;
   }

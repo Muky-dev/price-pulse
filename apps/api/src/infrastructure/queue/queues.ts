@@ -1,3 +1,3 @@
 export const QUEUES = {
-  SCRAPE_OFFER: 'scrape-offer',
+  SCRAPE: 'scrape',
 } as const;

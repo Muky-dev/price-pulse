@@ -1,10 +1,25 @@
 import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { QUEUES } from 'src/infrastructure/queue/queues';
+import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
+import { ScrappingService } from './scrapping.service';
 
-@Processor(QUEUES.SCRAPE_OFFER)
+@Processor(QUEUES.SCRAPE)
 export class ScrappingProcessor extends WorkerHost {
-  async process(job: Job): Promise<any> {
+  constructor(private readonly scrappingService: ScrappingService) {
+    super();
+  }
+
+  async process(job: Job<OfferJobPayload>): Promise<any> {
+    const startedAt: Date = new Date();
     console.log(`Processing job ${job.id} with data:`, job.data);
+
+    await this.scrappingService.createRun({
+      startedAt,
+      offerId: job.data.offerId,
+      strategy: 'ld',
+    });
+
+    return {};
   }
 }
