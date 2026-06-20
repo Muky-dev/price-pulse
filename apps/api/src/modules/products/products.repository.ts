@@ -6,18 +6,18 @@ import { PrismaService } from 'src/prisma.service';
 export class ProductsRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(data: Prisma.ProductCreateInput) {
-    return this.prisma.product.create({
+  async create(data: Prisma.ProductCreateInput) {
+    return await this.prisma.product.create({
       data,
     });
   }
 
-  findAll() {
-    return this.prisma.product.findMany();
+  async findAll() {
+    return await this.prisma.product.findMany();
   }
 
-  findOne(id: string) {
-    return this.prisma.product.findFirst({
+  async findOne(id: string) {
+    return await this.prisma.product.findFirst({
       where: { id },
       include: {
         offers: true,
@@ -26,15 +26,15 @@ export class ProductsRepository {
     });
   }
 
-  update(id: string, data: Prisma.ProductUpdateInput) {
-    return this.prisma.product.update({
+  async update(id: string, data: Prisma.ProductUpdateInput) {
+    return await this.prisma.product.update({
       where: { id },
       data,
     });
   }
 
-  remove(id: string) {
-    return this.prisma.product.update({
+  async remove(id: string) {
+    return await this.prisma.product.update({
       where: { id },
       data: { deletedAt: new Date() },
     });
