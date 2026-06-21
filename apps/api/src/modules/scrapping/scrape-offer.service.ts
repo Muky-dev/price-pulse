@@ -1,32 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { ScrapeRunRepository } from './scrape-run.repository';
-import { CreateScrapeRunDto } from './dto/create-scrape-run.dto';
 import { PlaywrightService } from 'src/infrastructure/playwright/playwright.service';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
 import { StrategyRegistry } from './strategy.registry';
 import { ExtractionResult } from './interfaces/extraction-result';
+import { ScrapeRunsService } from '../scrape-runs/scrape-runs.service';
 
 @Injectable()
 export class ScrapeOfferService {
   constructor(
-    private readonly scrapeRunRepository: ScrapeRunRepository,
+    private readonly scrapeRunsService: ScrapeRunsService,
     private readonly playwrightService: PlaywrightService,
     private readonly strategyRegistry: StrategyRegistry,
   ) {}
 
-  createRun(data: CreateScrapeRunDto) {
-    const { offerId, ...rest } = data;
-    return this.scrapeRunRepository.create({
-      ...rest,
-      success: false,
-      offer: { connect: { id: offerId } },
-    });
-  }
-
   async execute(data: OfferJobPayload) {
     const { offerId, url } = data;
 
-    await this.createRun({
+    await this.scrapeRunsService.create({
       offerId,
       strategy: 'placeholder',
       startedAt: new Date(),

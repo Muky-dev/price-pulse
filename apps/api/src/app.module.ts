@@ -11,17 +11,19 @@ import { ProductsModule } from './modules/products/products.module';
 import { ScrappingModule } from './modules/scrapping/scrapping.module';
 import { QueueModule } from './infrastructure/queue/queue.module';
 import { BrowserModule } from './infrastructure/browser/browser.module';
+import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    AuthModule,
     BrowserModule,
+    QueueModule,
+    AuthModule,
     UsersModule,
     OffersModule,
     ProductsModule,
     ScrappingModule,
-    QueueModule,
+    ScrapeRunsModule,
   ],
   providers: [
     PrismaService,
