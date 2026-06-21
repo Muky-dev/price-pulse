@@ -10,12 +10,14 @@ import { OffersModule } from './modules/offers/offers.module';
 import { ProductsModule } from './modules/products/products.module';
 import { ScrappingModule } from './modules/scrapping/scrapping.module';
 import { QueueModule } from './infrastructure/queue/queue.module';
+import { BrowserModule } from './infrastructure/browser/browser.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
-    UsersModule,
     AuthModule,
+    BrowserModule,
+    UsersModule,
     OffersModule,
     ProductsModule,
     ScrappingModule,

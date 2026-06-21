@@ -3,7 +3,7 @@ import { Prisma } from 'generated/prisma/client';
 import { PrismaService } from 'src/prisma.service';
 
 @Injectable()
-export class ScrappingRepository {
+export class ScrapeRunRepository {
   constructor(private readonly prisma: PrismaService) {}
 
   create(data: Prisma.ScrapeRunCreateInput) {

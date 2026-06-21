@@ -1,22 +1,26 @@
 import { Module } from '@nestjs/common';
-import { ScrappingService } from './scrapping.service';
+import { ScrapeOfferService } from './scrape-offer.service';
 import { BullModule } from '@nestjs/bullmq';
 import { ScrappingProcessor } from './scrapping.processor';
 import { QUEUES } from 'src/infrastructure/queue/queues';
-import { ScrappingRepository } from './scrapping.repository';
+import { ScrapeRunRepository } from './scrape-run.repository';
 import { PrismaService } from 'src/prisma.service';
+import { PlaywrightModule } from 'src/infrastructure/playwright/playwright.module';
+import { StrategyRegistry } from './strategy.registry';
 
 @Module({
   imports: [
     BullModule.registerQueue({
       name: QUEUES.SCRAPE,
     }),
+    PlaywrightModule,
   ],
   providers: [
-    ScrappingService,
+    ScrapeOfferService,
     ScrappingProcessor,
-    ScrappingRepository,
+    ScrapeRunRepository,
     PrismaService,
+    StrategyRegistry,
   ],
 })
 export class ScrappingModule {}
