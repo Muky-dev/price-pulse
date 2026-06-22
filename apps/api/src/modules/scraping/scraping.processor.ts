@@ -6,7 +6,7 @@ import { ScrapeOfferService } from './scrape-offer.service';
 import { Logger } from '@nestjs/common';
 
 @Processor(QUEUES.SCRAPE)
-export class ScrappingProcessor extends WorkerHost {
+export class ScrapingProcessor extends WorkerHost {
   constructor(private readonly scrapeOfferService: ScrapeOfferService) {
     super();
   }

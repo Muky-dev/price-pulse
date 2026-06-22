@@ -8,7 +8,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { JwtAuthGuard } from './modules/auth/jwt.guard';
 import { OffersModule } from './modules/offers/offers.module';
 import { ProductsModule } from './modules/products/products.module';
-import { ScrappingModule } from './modules/scrapping/scrapping.module';
+import { ScrapingModule } from './modules/scraping/scraping.module';
 import { QueueModule } from './infrastructure/queue/queue.module';
 import { BrowserModule } from './infrastructure/browser/browser.module';
 import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
@@ -22,7 +22,7 @@ import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
     UsersModule,
     OffersModule,
     ProductsModule,
-    ScrappingModule,
+    ScrapingModule,
     ScrapeRunsModule,
   ],
   providers: [
