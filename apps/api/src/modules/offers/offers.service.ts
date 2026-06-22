@@ -20,7 +20,10 @@ export class OffersService {
       url: createOfferDto.url,
     });
 
-    const offerJobPayload: OfferJobPayload = { offerId: offer.id };
+    const offerJobPayload: OfferJobPayload = {
+      offerId: offer.id,
+      url: offer.url,
+    };
 
     await this.scrapeQueue.add(SCRAPE_JOBS.OFFER, offerJobPayload);
 
