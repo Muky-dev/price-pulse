@@ -4,7 +4,7 @@ import { ExtractionResult } from '../interfaces/extraction-result';
 
 @Injectable()
 export class JsonLdStrategy implements ExtractStrategy {
-  name: string = 'json-ld';
+  readonly name: string = 'json-ld';
 
   canHandle(html: string): boolean {
     return html.includes('application/ld+json');

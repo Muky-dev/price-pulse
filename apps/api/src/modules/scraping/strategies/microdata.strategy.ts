@@ -4,7 +4,7 @@ import { ExtractionResult } from '../interfaces/extraction-result';
 
 @Injectable()
 export class MicrodataStrategy implements ExtractStrategy {
-  name: string = 'microdata';
+  readonly name: string = 'microdata';
 
   canHandle(html: string): boolean {
     return html.includes('itemtype') && html.includes('itemprop');
