@@ -69,7 +69,7 @@ model Offer {
 model PricePoint {
   id        String   @id @default(ulid())
   price     Decimal
-  currency  String   @db.Char(3)
+  currency  String?  @db.Char(3)
   available Boolean?
 
   createdAt DateTime  @default(now())
