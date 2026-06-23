@@ -15,7 +15,7 @@ export class OpenGraphStrategy implements ExtractStrategy {
     const $ = cheerio.load(html);
 
     return {
-      productTitle: $('meta[property="og:title"]').attr('content'),
+      productName: $('meta[property="og:title"]').attr('content'),
       currency: $('meta[property="product:price:currency"]').attr('content'),
       price: $('meta[property="product:price:amount"]').attr('content')
         ? Number($('meta[property="product:price:amount"]').attr('content'))

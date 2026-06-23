@@ -31,7 +31,7 @@ export class JsonLdStrategy implements ExtractStrategy {
     const product = json.find((x) => x['@type'] === 'Product');
 
     return {
-      productTitle: product?.name,
+      productName: product?.name,
       price: product?.offers?.price
         ? Number(product?.offers?.price)
         : undefined,

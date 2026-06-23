@@ -14,7 +14,7 @@ export class MicrodataStrategy implements ExtractStrategy {
   extract(html: string): ExtractionResult {
     const $ = cheerio.load(html);
     return {
-      productTitle: $('[itemprop=name]').first().attr('content'),
+      productName: $('[itemprop=name]').first().attr('content'),
       price: $('[itemprop=price]').first().attr('content')
         ? Number($('[itemprop=price]').first().attr('content'))
         : undefined,

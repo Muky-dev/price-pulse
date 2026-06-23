@@ -1,5 +1,5 @@
 export interface ExtractionResult {
-  productTitle?: string;
+  productName?: string;
   storeName?: string;
   price?: number;
   currency?: string;
