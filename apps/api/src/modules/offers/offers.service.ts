@@ -43,6 +43,10 @@ export class OffersService {
     return await this.offersRepository.findOne(id);
   }
 
+  async findOneWithProduct(id: string) {
+    return await this.offersRepository.findOneWithProduct(id);
+  }
+
   async remove(id: string) {
     return await this.offersRepository.remove(id);
   }

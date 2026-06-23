@@ -22,6 +22,15 @@ export class OffersRepository {
     });
   }
 
+  async findOneWithProduct(id: string) {
+    return await this.prisma.offer.findFirst({
+      where: { id },
+      include: {
+        product: true,
+      },
+    });
+  }
+
   async update(id: string, data: Prisma.OfferUpdateInput) {
     return await this.prisma.offer.update({
       where: { id },
