@@ -6,6 +6,7 @@ import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { SCRAPE_JOBS } from 'src/infrastructure/queue/jobs/scrape-jobs';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
+import { UpdateOfferDto } from './dto/update-offer.dto';
 
 @Injectable()
 export class OffersService {
@@ -28,6 +29,10 @@ export class OffersService {
     await this.scrapeQueue.add(SCRAPE_JOBS.OFFER, offerJobPayload);
 
     return offer;
+  }
+
+  async update(id: string, updateOfferDto: Partial<UpdateOfferDto>) {
+    return await this.offersRepository.update(id, updateOfferDto);
   }
 
   async findAll() {
