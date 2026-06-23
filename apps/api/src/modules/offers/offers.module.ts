@@ -14,5 +14,6 @@ import { QUEUES } from 'src/infrastructure/queue/queues';
   ],
   controllers: [OffersController],
   providers: [OffersService, OffersRepository, PrismaService],
+  exports: [OffersService],
 })
 export class OffersModule {}
