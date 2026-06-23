@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import * as cheerio from 'cheerio';
 import { ExtractStrategy } from '../interfaces/extract-strategy';
 import { ExtractionResult } from '../interfaces/extraction-result';
 
@@ -11,14 +12,14 @@ export class MicrodataStrategy implements ExtractStrategy {
   }
 
   extract(html: string): ExtractionResult {
+    const $ = cheerio.load(html);
     return {
-      productTitle: this.pick(html, '[itemprop=name]'),
-      price: this.pick(html, '[itemprop=price]'),
+      productTitle: $('[itemprop=name]').first().attr('content'),
+      price: $('[itemprop=price]').first().attr('content')
+        ? Number($('[itemprop=price]').first().attr('content'))
+        : undefined,
+      storeName: $('[itemprop=brand]').first().attr('content'),
+      currency: $('[itemprop=priceCurrency]').first().attr('content'),
     };
-  }
-
-  private pick(html: string, selector: string): string {
-    // TODO: implement pick logic
-    return '';
   }
 }
