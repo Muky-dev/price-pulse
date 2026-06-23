@@ -12,6 +12,7 @@ import { ScrapingModule } from './modules/scraping/scraping.module';
 import { QueueModule } from './infrastructure/queue/queue.module';
 import { BrowserModule } from './infrastructure/browser/browser.module';
 import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
+import { PricePointsModule } from './modules/price-points/price-points.module';
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
     ProductsModule,
     ScrapingModule,
     ScrapeRunsModule,
+    PricePointsModule,
   ],
   providers: [
     PrismaService,
