@@ -3,6 +3,7 @@ import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
 import { ProductsRepository } from './products.repository';
 import { AuthUser } from '../users/entity/user';
+import { CreateProductWithOfferDto } from './dto/create-product-with-offer.dto';
 
 @Injectable()
 export class ProductsService {
@@ -12,6 +13,19 @@ export class ProductsService {
     return await this.productsRepository.create({
       ...createProductDto,
       createdBy: { connect: { id: authUser.id } },
+    });
+  }
+
+  async createByScrapeRun(
+    createProductWithOfferDto: CreateProductWithOfferDto,
+  ) {
+    const { offerId, ...rest } = createProductWithOfferDto;
+
+    return await this.productsRepository.create({
+      ...rest,
+      offers: {
+        connect: { id: offerId },
+      },
     });
   }
 
