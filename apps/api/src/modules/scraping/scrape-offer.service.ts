@@ -24,7 +24,6 @@ export class ScrapeOfferService {
 
     const scrapeRun = await this.scrapeRunsService.create({
       offerId,
-      strategy: 'placeholder',
       startedAt: new Date(),
     });
 

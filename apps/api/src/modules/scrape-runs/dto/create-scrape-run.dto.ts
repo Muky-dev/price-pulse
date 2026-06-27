@@ -1,8 +1,9 @@
-import { IsDate, IsString } from 'class-validator';
+import { IsDate, IsOptional, IsString } from 'class-validator';
 
 export class CreateScrapeRunDto {
   @IsString()
-  strategy: string;
+  @IsOptional()
+  strategy?: string;
 
   @IsDate()
   startedAt: Date;
