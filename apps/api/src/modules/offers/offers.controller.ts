@@ -28,6 +28,11 @@ export class OffersController {
     return await this.offersService.findOne(id);
   }
 
+  @Post(':id/scrape')
+  async scrapeOffer(@Param('id') id: string) {
+    return await this.offersService.scrapeOffer(id);
+  }
+
   @Delete(':id')
   async remove(@Param('id') id: string) {
     return await this.offersService.remove(id);

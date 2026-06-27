@@ -43,6 +43,23 @@ export class OffersService {
     return await this.offersRepository.findOne(id);
   }
 
+  async scrapeOffer(id: string) {
+    const offer = await this.offersRepository.findOne(id);
+
+    if (!offer) {
+      throw new Error(`Offer with id ${id} not found`);
+    }
+
+    const offerJobPayload: OfferJobPayload = {
+      offerId: offer.id,
+      url: offer.url,
+    };
+
+    await this.scrapeQueue.add(SCRAPE_JOBS.OFFER, offerJobPayload);
+
+    return { message: 'Scrape job added to the queue' };
+  }
+
   async findOneWithProduct(id: string) {
     return await this.offersRepository.findOneWithProduct(id);
   }
