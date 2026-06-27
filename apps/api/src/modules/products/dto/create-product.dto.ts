@@ -5,7 +5,11 @@ export class CreateProductDto {
   @IsString()
   name: string;
 
+  @IsString()
+  @IsOptional()
+  brand?: string;
+
   @IsEnum(ProductVisibility)
   @IsOptional()
-  visibility: ProductVisibility;
+  visibility?: ProductVisibility;
 }
