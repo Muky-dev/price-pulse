@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { BrowserProvider } from '../browser/browser.provider';
 
 @Injectable()
@@ -11,9 +11,15 @@ export class PlaywrightService {
     try {
       const page = await context.newPage();
 
-      await page.goto(url, {
+      const response = await page.goto(url, {
         waitUntil: 'domcontentloaded',
       });
+
+      if (response && response.status() >= 400) {
+        Logger.error(
+          `Failed to fetch HTML for URL: ${url}, Status: ${response.status()}`,
+        );
+      }
 
       const html = await page.content();
 
