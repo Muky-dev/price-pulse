@@ -43,7 +43,6 @@ export class ScrapeOfferService {
       const result: ExtractionResult = strategy.extract(html);
 
       extraction = this.mergeExtractionResults(extraction, result);
-      break;
     }
 
     if (!this.isExtractionComplete(extraction)) {
