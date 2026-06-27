@@ -32,6 +32,7 @@ export class ScrapeOfferService {
 
     let extraction: ExtractionResult = {
       productName: undefined,
+      productBrand: undefined,
       price: undefined,
       storeName: undefined,
       currency: undefined,
@@ -63,6 +64,7 @@ export class ScrapeOfferService {
       if (extraction.productName) {
         await this.productsService.createByScrapeRun({
           name: extraction.productName,
+          brand: extraction.productBrand,
           visibility: 'SHARED',
           offerId,
         });
