@@ -6,6 +6,9 @@ import { ExtractionResult } from '../interfaces/extraction-result';
 interface JsonLdProduct {
   '@type': string;
   name?: string;
+  brand?: {
+    name?: string;
+  };
   offers?: {
     price?: string | number;
     priceCurrency?: string;
@@ -35,6 +38,7 @@ export class JsonLdStrategy implements ExtractStrategy {
       price: product?.offers?.price
         ? Number(product?.offers?.price)
         : undefined,
+      productBrand: product?.brand?.name,
       storeName: product?.offers?.seller?.name,
       currency: product?.offers?.priceCurrency,
     };
