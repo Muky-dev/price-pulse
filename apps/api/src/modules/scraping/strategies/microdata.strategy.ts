@@ -18,7 +18,7 @@ export class MicrodataStrategy implements ExtractStrategy {
       price: $('[itemprop=price]').first().attr('content')
         ? Number($('[itemprop=price]').first().attr('content'))
         : undefined,
-      storeName: $('[itemprop=brand]').first().attr('content'),
+      productBrand: $('[itemprop=brand]').first().attr('content'),
       currency: $('[itemprop=priceCurrency]').first().attr('content'),
     };
   }
