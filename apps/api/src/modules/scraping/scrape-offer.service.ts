@@ -131,6 +131,7 @@ export class ScrapeOfferService {
       price: newResult.price ?? existing.price,
       storeName: newResult.storeName ?? existing.storeName,
       currency: newResult.currency ?? existing.currency,
+      productBrand: newResult.productBrand ?? existing.productBrand,
     };
   }
 }
