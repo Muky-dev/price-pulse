@@ -86,7 +86,7 @@ model ScrapeRun {
   id         String    @id @default(ulid())
   success    Boolean
   message    String?
-  strategy   String
+  strategy   String?
   startedAt  DateTime
   finishedAt DateTime?
 
