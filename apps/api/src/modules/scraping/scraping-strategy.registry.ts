@@ -4,7 +4,7 @@ import { MicrodataStrategy } from './strategies/microdata.strategy';
 import { OpenGraphStrategy } from './strategies/open-graph.strategy';
 
 @Injectable()
-export class StrategyRegistry {
+export class ScrapingStrategyRegistry {
   constructor(
     private readonly jsonLdStrategy: JsonLdStrategy,
     private readonly microdataStrategy: MicrodataStrategy,

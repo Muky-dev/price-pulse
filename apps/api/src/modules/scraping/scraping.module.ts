@@ -5,7 +5,7 @@ import { ScrapingProcessor } from './scraping.processor';
 import { QUEUES } from 'src/infrastructure/queue/queues';
 import { PrismaService } from 'src/prisma.service';
 import { PlaywrightModule } from 'src/infrastructure/playwright/playwright.module';
-import { StrategyRegistry } from './strategy.registry';
+import { ScrapingStrategyRegistry } from './scraping-strategy.registry';
 import { ScrapeRunsModule } from '../scrape-runs/scrape-runs.module';
 import { PricePointsModule } from '../price-points/price-points.module';
 import { JsonLdStrategy } from './strategies/json-ld.strategy';
@@ -29,7 +29,7 @@ import { OffersModule } from '../offers/offers.module';
     ScrapeOfferService,
     ScrapingProcessor,
     PrismaService,
-    StrategyRegistry,
+    ScrapingStrategyRegistry,
     JsonLdStrategy,
     MicrodataStrategy,
     OpenGraphStrategy,

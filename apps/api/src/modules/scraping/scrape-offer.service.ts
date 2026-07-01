@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { PlaywrightService } from 'src/infrastructure/playwright/playwright.service';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
-import { StrategyRegistry } from './strategy.registry';
+import { ScrapingStrategyRegistry } from './scraping-strategy.registry';
 import { ExtractionResult } from './interfaces/extraction-result';
 import { ScrapeRunsService } from '../scrape-runs/scrape-runs.service';
 import { PricePointsService } from '../price-points/price-points.service';
@@ -16,7 +16,7 @@ export class ScrapeOfferService {
     private readonly offersService: OffersService,
     private readonly productsService: ProductsService,
     private readonly playwrightService: PlaywrightService,
-    private readonly strategyRegistry: StrategyRegistry,
+    private readonly strategyRegistry: ScrapingStrategyRegistry,
   ) {}
 
   async execute(data: OfferJobPayload) {
