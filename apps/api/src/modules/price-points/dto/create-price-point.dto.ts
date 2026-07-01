@@ -11,7 +11,7 @@ export class CreatePricePointDto {
   price: number;
 
   @IsCurrency()
-  currency: string;
+  currency?: string;
 
   @IsOptional()
   available?: boolean;

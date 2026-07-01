@@ -97,9 +97,9 @@ export class ScrapeOfferService {
     extraction: ExtractionResult,
   ): Promise<boolean> {
     try {
-      if (extraction.price === undefined || extraction.currency === undefined) {
+      if (extraction.price === undefined) {
         Logger.warn(
-          `Price or currency is undefined for offerId: ${offerId}`,
+          `Price is undefined for offerId: ${offerId}`,
           'ScrapeOfferService',
         );
         return false;
