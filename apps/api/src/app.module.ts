@@ -13,10 +13,12 @@ import { QueueModule } from './infrastructure/queue/queue.module';
 import { BrowserModule } from './infrastructure/browser/browser.module';
 import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
 import { PricePointsModule } from './modules/price-points/price-points.module';
+import { ScheduleModule } from '@nestjs/schedule';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
+    ScheduleModule.forRoot(),
     BrowserModule,
     QueueModule,
     AuthModule,
