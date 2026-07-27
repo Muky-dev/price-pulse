@@ -74,10 +74,11 @@ export class ScrapeOfferService {
       }
     }
 
-    const pricePointRegistered = await this.registerPricePoint(
-      offerId,
-      extraction,
-    );
+    const pricePointRegistered =
+      await this.pricePointsService.registerPricePointFromExtraction(
+        offerId,
+        extraction,
+      );
 
     await this.scrapeRunsService.update(scrapeRun.id, {
       success: pricePointRegistered,
@@ -90,35 +91,6 @@ export class ScrapeOfferService {
     return !Object.values(extraction).some(
       (value) => value === undefined || value === null,
     );
-  }
-
-  private async registerPricePoint(
-    offerId: string,
-    extraction: ExtractionResult,
-  ): Promise<boolean> {
-    try {
-      if (extraction.price === undefined) {
-        Logger.warn(
-          `Price is undefined for offerId: ${offerId}`,
-          'ScrapeOfferService',
-        );
-        return false;
-      }
-
-      await this.pricePointsService.create({
-        offerId,
-        price: extraction.price,
-        currency: extraction.currency,
-      });
-
-      return true;
-    } catch {
-      Logger.error(
-        `Failed to register price point for offerId: ${offerId}`,
-        'ScrapeOfferService',
-      );
-      return false;
-    }
   }
 
   private mergeExtractionResults(
