@@ -7,12 +7,13 @@ import { Queue } from 'bullmq';
 import { SCRAPE_JOBS } from 'src/infrastructure/queue/jobs/scrape-jobs';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
 import { UpdateOfferDto } from './dto/update-offer.dto';
+import { QUEUES } from 'src/infrastructure/queue/queues';
 
 @Injectable()
 export class OffersService {
   constructor(
     private readonly offersRepository: OffersRepository,
-    @InjectQueue('scrape') private readonly scrapeQueue: Queue,
+    @InjectQueue(QUEUES.SCRAPE) private readonly scrapeQueue: Queue,
   ) {}
 
   async create(createOfferDto: CreateOfferDto, authUser: AuthUser) {
