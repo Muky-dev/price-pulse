@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PlaywrightService } from 'src/infrastructure/playwright/playwright.service';
+import { PlaywrightFetcherService } from 'src/infrastructure/playwright-fetcher/playwright-fetcher.service';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
 import { ScrapingStrategyRegistry } from './scraping-strategy.registry';
 import { ExtractionResult } from './interfaces/extraction-result';
@@ -15,7 +15,7 @@ export class ScrapeOfferService {
     private readonly pricePointsService: PricePointsService,
     private readonly offersService: OffersService,
     private readonly productsService: ProductsService,
-    private readonly playwrightService: PlaywrightService,
+    private readonly playwrightFetcherService: PlaywrightFetcherService,
     private readonly strategyRegistry: ScrapingStrategyRegistry,
   ) {}
 
@@ -27,7 +27,7 @@ export class ScrapeOfferService {
       startedAt: new Date(),
     });
 
-    const html = await this.playwrightService.fetchHtml(url);
+    const html = await this.playwrightFetcherService.fetchHtml(url);
 
     let extraction: ExtractionResult = {
       productName: undefined,
