@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { BrowserProvider } from '../browser/browser.provider';
+import { BrowserProvider } from '../../browser/browser.provider';
+import { HtmlFetcher } from '../interfaces/html-fetcher';
 
 @Injectable()
-export class PlaywrightFetcherService {
+export class PlaywrightFetcherService implements HtmlFetcher {
   constructor(private readonly browserProvider: BrowserProvider) {}
 
   async fetchHtml(url: string) {

@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PlaywrightFetcherService } from 'src/infrastructure/playwright-fetcher/playwright-fetcher.service';
+import { PlaywrightFetcherService } from 'src/infrastructure/fetchers/playwright-fetcher/playwright-fetcher.service';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
 import { ScrapingStrategyRegistry } from './scraping-strategy.registry';
 import { ExtractionResult } from './interfaces/extraction-result';

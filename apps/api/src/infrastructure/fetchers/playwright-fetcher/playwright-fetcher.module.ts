@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PlaywrightFetcherService } from './playwright-fetcher.service';
-import { BrowserModule } from '../browser/browser.module';
+import { BrowserModule } from '../../browser/browser.module';
 
 @Module({
   imports: [BrowserModule],
