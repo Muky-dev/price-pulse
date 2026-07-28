@@ -7,7 +7,7 @@ export class HttpFetcherService implements HtmlFetcher {
 
     if (!response.ok) {
       Logger.error(
-        `Failed to fetch HTML for URL: ${url}, Status: ${response.status}`,
+        `Failed to fetch HTML with HttpFetcher for URL: ${url}, Status: ${response.status}`,
       );
     }
 

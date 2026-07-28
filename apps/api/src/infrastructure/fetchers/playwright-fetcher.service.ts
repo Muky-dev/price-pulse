@@ -18,7 +18,7 @@ export class PlaywrightFetcherService implements HtmlFetcher {
 
       if (response && response.status() >= 400) {
         Logger.error(
-          `Failed to fetch HTML for URL: ${url}, Status: ${response.status()}`,
+          `Failed to fetch HTML with PlaywrightFetcher for URL: ${url}, Status: ${response.status()}`,
         );
       }
 
