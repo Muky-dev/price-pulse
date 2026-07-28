@@ -6,7 +6,9 @@ import { ExtractionResult } from '../interfaces/extraction-result';
 interface JsonLdProduct {
   '@type': string;
   name?: string;
-  brand?: string;
+  brand?: {
+    name?: string;
+  };
   offers?: {
     price?: string | number;
     priceCurrency?: string;
@@ -31,12 +33,17 @@ export class JsonLdStrategy implements ExtractStrategy {
 
     const product = json.find((x) => x['@type'] === 'Product');
 
+    const brand =
+      typeof product?.brand === 'string'
+        ? { name: product.brand }
+        : product?.brand;
+
     return {
       productName: product?.name,
       price: product?.offers?.price
         ? Number(product?.offers?.price)
         : undefined,
-      productBrand: product?.brand,
+      productBrand: brand?.name,
       storeName: product?.offers?.seller?.name,
       currency: product?.offers?.priceCurrency,
     };
