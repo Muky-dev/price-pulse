@@ -1,8 +1,9 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { BrowserProvider } from '../browser/browser.provider';
+import { HtmlFetcher } from './interfaces/html-fetcher';
 
 @Injectable()
-export class PlaywrightService {
+export class PlaywrightFetcherService implements HtmlFetcher {
   constructor(private readonly browserProvider: BrowserProvider) {}
 
   async fetchHtml(url: string) {
@@ -17,7 +18,7 @@ export class PlaywrightService {
 
       if (response && response.status() >= 400) {
         Logger.error(
-          `Failed to fetch HTML for URL: ${url}, Status: ${response.status()}`,
+          `Failed to fetch HTML with PlaywrightFetcher for URL: ${url}, Status: ${response.status()}`,
         );
       }
 

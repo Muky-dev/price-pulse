@@ -1,7 +1,9 @@
 import { Controller, Get, Post, Body, Param, Delete } from '@nestjs/common';
 import { PricePointsService } from './price-points.service';
 import { CreatePricePointDto } from './dto/create-price-point.dto';
+import { ApiBearerAuth } from '@nestjs/swagger';
 
+@ApiBearerAuth()
 @Controller('price-points')
 export class PricePointsController {
   constructor(private readonly pricePointsService: PricePointsService) {}
