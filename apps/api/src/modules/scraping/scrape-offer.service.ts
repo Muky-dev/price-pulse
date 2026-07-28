@@ -111,11 +111,11 @@ export class ScrapeOfferService {
     newResult: ExtractionResult,
   ): ExtractionResult {
     return {
-      productName: newResult.productName ?? existing.productName,
-      price: newResult.price ?? existing.price,
-      storeName: newResult.storeName ?? existing.storeName,
-      currency: newResult.currency ?? existing.currency,
-      productBrand: newResult.productBrand ?? existing.productBrand,
+      productName: existing.productName ?? newResult.productName,
+      price: existing.price ?? newResult.price,
+      storeName: existing.storeName ?? newResult.storeName,
+      currency: existing.currency ?? newResult.currency,
+      productBrand: existing.productBrand ?? newResult.productBrand,
     };
   }
 }
