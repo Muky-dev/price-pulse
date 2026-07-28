@@ -4,7 +4,7 @@ import { BullModule } from '@nestjs/bullmq';
 import { ScrapingProcessor } from './scraping.processor';
 import { QUEUES } from 'src/infrastructure/queue/queues';
 import { PrismaService } from 'src/prisma.service';
-import { PlaywrightFetcherModule } from 'src/infrastructure/fetchers/playwright-fetcher/playwright-fetcher.module';
+import { FetchersModule } from 'src/infrastructure/fetchers/fetchers.module';
 import { ScrapingStrategyRegistry } from './scraping-strategy.registry';
 import { ScrapeRunsModule } from '../scrape-runs/scrape-runs.module';
 import { PricePointsModule } from '../price-points/price-points.module';
@@ -13,15 +13,13 @@ import { MicrodataStrategy } from './strategies/microdata.strategy';
 import { OpenGraphStrategy } from './strategies/open-graph.strategy';
 import { ProductsModule } from '../products/products.module';
 import { OffersModule } from '../offers/offers.module';
-import { HttpFetcherModule } from 'src/infrastructure/fetchers/http-fetcher/http-fetcher.module';
 
 @Module({
   imports: [
     BullModule.registerQueue({
       name: QUEUES.SCRAPE,
     }),
-    PlaywrightFetcherModule,
-    HttpFetcherModule,
+    FetchersModule,
     ScrapeRunsModule,
     PricePointsModule,
     ProductsModule,

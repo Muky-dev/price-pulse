@@ -1,5 +1,5 @@
 import { Logger } from '@nestjs/common';
-import { HtmlFetcher } from '../interfaces/html-fetcher';
+import { HtmlFetcher } from './interfaces/html-fetcher';
 
 export class HttpFetcherService implements HtmlFetcher {
   async fetchHtml(url: string): Promise<string> {

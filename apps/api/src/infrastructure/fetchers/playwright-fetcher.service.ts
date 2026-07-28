@@ -1,6 +1,6 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { BrowserProvider } from '../../browser/browser.provider';
-import { HtmlFetcher } from '../interfaces/html-fetcher';
+import { BrowserProvider } from '../browser/browser.provider';
+import { HtmlFetcher } from './interfaces/html-fetcher';
 
 @Injectable()
 export class PlaywrightFetcherService implements HtmlFetcher {

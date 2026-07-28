@@ -1,5 +1,4 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { PlaywrightFetcherService } from 'src/infrastructure/fetchers/playwright-fetcher/playwright-fetcher.service';
 import { OfferJobPayload } from 'src/infrastructure/queue/types/offer-job.type';
 import { ScrapingStrategyRegistry } from './scraping-strategy.registry';
 import { ExtractionResult } from './interfaces/extraction-result';
@@ -7,6 +6,7 @@ import { ScrapeRunsService } from '../scrape-runs/scrape-runs.service';
 import { PricePointsService } from '../price-points/price-points.service';
 import { OffersService } from '../offers/offers.service';
 import { ProductsService } from '../products/products.service';
+import { FetchersRegistry } from 'src/infrastructure/fetchers/fetchers.registry';
 
 @Injectable()
 export class ScrapeOfferService {
@@ -15,7 +15,7 @@ export class ScrapeOfferService {
     private readonly pricePointsService: PricePointsService,
     private readonly offersService: OffersService,
     private readonly productsService: ProductsService,
-    private readonly playwrightFetcherService: PlaywrightFetcherService,
+    private readonly fetchersRegistry: FetchersRegistry,
     private readonly strategyRegistry: ScrapingStrategyRegistry,
   ) {}
 
@@ -27,7 +27,8 @@ export class ScrapeOfferService {
       startedAt: new Date(),
     });
 
-    const html = await this.playwrightFetcherService.fetchHtml(url);
+    const fetchers = this.fetchersRegistry.getAll();
+    const extractionStrategies = this.strategyRegistry.getAll();
 
     let extraction: ExtractionResult = {
       productName: undefined,
@@ -37,17 +38,29 @@ export class ScrapeOfferService {
       currency: undefined,
     };
 
-    for (const strategy of this.strategyRegistry.getAll()) {
-      if (!strategy.canHandle(html)) continue;
+    let extractionCompleted = false;
 
-      const result: ExtractionResult = strategy.extract(html);
+    for (const fetcher of fetchers) {
+      const html = await fetcher.fetchHtml(url);
 
-      extraction = this.mergeExtractionResults(extraction, result);
+      for (const strategy of extractionStrategies) {
+        if (!strategy.canHandle(html)) continue;
+
+        const result: ExtractionResult = strategy.extract(html);
+
+        extraction = this.mergeExtractionResults(extraction, result);
+      }
+
+      extractionCompleted = this.isExtractionComplete(extraction);
+
+      if (extractionCompleted) {
+        break;
+      }
     }
 
-    if (!this.isExtractionComplete(extraction)) {
+    if (!extractionCompleted) {
       Logger.warn(
-        `Extraction result may be incomplete for offerId: ${offerId}, url: ${url}`,
+        `Extraction incomplete for offerId: ${offerId}, url: ${url}, extraction: ${JSON.stringify(extraction)}`,
         'ScrapeOfferService',
       );
     }
