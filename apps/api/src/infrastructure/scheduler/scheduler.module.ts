@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ScrapeOfferScheduler } from './offer-scrape.scheduler';
+import { OfferScrapeScheduler } from './offer-scrape.scheduler';
 
 @Module({
-  providers: [ScrapeOfferScheduler],
+  providers: [OfferScrapeScheduler],
 })
 export class SchedulerModule {}
