@@ -2,8 +2,8 @@ import { Injectable, Logger } from '@nestjs/common';
 import { Cron, CronExpression } from '@nestjs/schedule';
 
 @Injectable()
-export class ScrapeOfferScheduler {
-  private readonly logger = new Logger(ScrapeOfferScheduler.name);
+export class OfferScrapeScheduler {
+  private readonly logger = new Logger(OfferScrapeScheduler.name);
 
   @Cron(CronExpression.EVERY_30_SECONDS)
   handleCron() {
