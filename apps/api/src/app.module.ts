@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { APP_GUARD } from '@nestjs/core';
+import { ScheduleModule } from '@nestjs/schedule';
 
 import { PrismaService } from './prisma.service';
 import { UsersModule } from './modules/users/users.module';
@@ -13,12 +14,13 @@ import { QueueModule } from './infrastructure/queue/queue.module';
 import { BrowserModule } from './infrastructure/browser/browser.module';
 import { ScrapeRunsModule } from './modules/scrape-runs/scrape-runs.module';
 import { PricePointsModule } from './modules/price-points/price-points.module';
-import { ScheduleModule } from '@nestjs/schedule';
+import { SchedulerModule } from './infrastructure/scheduler/scheduler.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     ScheduleModule.forRoot(),
+    SchedulerModule,
     BrowserModule,
     QueueModule,
     AuthModule,
