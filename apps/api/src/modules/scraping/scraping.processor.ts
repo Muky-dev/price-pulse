@@ -12,11 +12,20 @@ export class ScrapingProcessor extends WorkerHost {
   }
 
   async process(job: Job<OfferJobPayload>): Promise<any> {
-    Logger.log(`Processing job ${job.id} - ${job.name}`, 'queue');
+    try {
+      Logger.log(`Processing job ${job.id} - ${job.name}`, 'queue');
 
-    await this.scrapeOfferService.execute(job.data);
+      await this.scrapeOfferService.execute(job.data);
 
-    Logger.log(`Finished processing job ${job.id} - ${job.name}`, 'queue');
-    return {};
+      Logger.log(`Finished processing job ${job.id} - ${job.name}`, 'queue');
+      return {};
+    } catch (err) {
+      Logger.error(
+        `Job ${job.id} - ${job.name} failed`,
+        err instanceof Error ? err.stack : String(err),
+      );
+
+      throw err;
+    }
   }
 }
